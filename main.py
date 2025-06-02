@@ -67,3 +67,378 @@ tabla_codones = {
     'GAU': 'D', 'GAC': 'D', 'GAA': 'E', 'GAG': 'E',
     'GGU': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G'
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# --- Lógica principal del programa ---
+def main():
+    registrador = RegistradorSecuencias()
+    gestor_adn = GestorADN(registrador)
+    analizador_proteinas = AnalizadorProteinas(registrador)
+
+    print("¡Bienvenido al Procesador de Secuencias Biológicas!")
+
+    while True:
+        print("\n--- Menú Principal ---")
+        print("1. Procesar una nueva secuencia de ADN")
+        print("2. Analizar datos de secuencias (desde 'datos_adn.csv')")
+        print("3. Obtener cadena de ADN complementaria") # Nueva funcionalidad
+        print("4. Analizar frecuencia de aminoácidos de una proteína") # Nueva funcionalidad
+        print("5. Salir")
+        
+        opcion = input("Seleccione una opción (1, 2, 3, 4 o 5): ").strip()
+        registrador.registrar_info(f"Usuario seleccionó la opción: {opcion}")
+
+        if opcion == '1':
+            try:
+                adn_usuario = input("Ingrese la secuencia de ADN (ej. 5'-ATGC-3', o 'cancelar' para volver al menú): ").strip()
+                if adn_usuario.lower() == 'cancelar':
+                    print("Operación cancelada. Volviendo al menú principal.")
+                    continue
+
+                adn_limpio = gestor_adn.limpiar_adn(adn_usuario)
+                
+                if not gestor_adn.validar_adn(adn_limpio):
+                    raise ValueError("La secuencia contiene caracteres inválidos. Solo se permiten A, T, C, G.")
+                
+                arn = gestor_adn.transcribir_adn(adn_limpio)
+                proteina = analizador_proteinas.traducir_arn(arn)
+                longitud_proteina = analizador_proteinas.analizar_longitud_proteina(proteina)
+
+                analizador_proteinas.save_results_to_csv(adn_usuario, adn_limpio, arn, proteina)
+                
+                registrador.registrar_info("Transcripción y traducción completadas correctamente")
+                
+                print("\n--- Resultados del Procesamiento ---")
+                print(f"ADN ingresado: {adn_usuario}")
+                print(f"ADN limpio: {adn_limpio}")
+                print(f"ARN: {arn}")
+                print(f"Proteína: {proteina}")
+                print(f"Longitud de Proteína: {longitud_proteina} aminoácidos")
+                print("------------------------------------\n")
+
+            except ValueError as e:
+                registrador.registrar_error(f"Error de validación: {e}")
+                print(f"Error de entrada: {e}\nPor favor, intente de nuevo o ingrese 'cancelar'.")
+            except Exception as e:
+                registrador.registrar_critico(f"Error inesperado: {e}", info_exc=True)
+                print(f"Ocurrió un error inesperado: {e}\nPor favor, contacte al soporte técnico.")
+                if SENTRY_DSN: sentry_sdk.capture_exception()
+        
+        elif opcion == '2':
+            analizador_proteinas.cargar_y_analizar_datos()
+        
+        elif opcion == '3': # Nueva opción: Obtener cadena complementaria
+            adn_usuario = input("Ingrese la secuencia de ADN para obtener su complementaria: ").strip()
+            adn_limpio = gestor_adn.limpiar_adn(adn_usuario)
+            if gestor_adn.validar_adn(adn_limpio):
+                cadena_complementaria = gestor_adn.obtener_cadena_complementaria(adn_limpio)
+                if cadena_complementaria: # Si no hubo problemas en obtenerla
+                    print(f"\n--- Cadena Complementaria ---")
+                    print(f"ADN original: {adn_usuario}")
+                    print(f"ADN complementario: {cadena_complementaria}")
+                    print("------------------------------\n")
+            else:
+                print("Error: La secuencia de ADN ingresada no es válida para obtener su complementaria. Solo se permiten A, T, C, G.")
+                registrador.registrar_warning(f"Intento de obtener cadena complementaria con ADN inválido: '{adn_usuario}'")
+        
+        elif opcion == '4': # Nueva opción: Analizar frecuencia de aminoácidos
+            proteina_usuario = input("Ingrese la secuencia de proteína para analizar su frecuencia (ej. FLSYWSTOP): ").strip().upper()
+            analizador_proteinas.analizar_frecuencia_aminoacidos(proteina_usuario)
+
+        elif opcion == '5':
+            print("Gracias por usar el Procesador de Secuencias Biológicas. ¡Hasta pronto!")
+            break
+        
+        else:
+            print("Opción no válida. Por favor, seleccione una de las opciones del menú.")
+            registrador.registrar_advertencia(f"Usuario ingresó una opción de menú inválida: {opcion}")
+
+if __name__ == "main": 
+    main()
