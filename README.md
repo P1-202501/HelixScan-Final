@@ -148,27 +148,64 @@ Longitud de Proteína:
 
 ```bash
 --- Análisis de Datos de Secuencias ---
-Total de secuencias procesadas: 3
+Total de secuencias procesadas: #
 
 Estadísticas de longitud de proteínas:
-  Promedio: 4.33 aminoácidos
-  Mínimo: 3 aminoácidos
-  Máximo: 7 aminoácidos
-  Desviación estándar: 2.31 aminoácidos
+  Promedio: # aminoácidos
+  Mínimo: # aminoácidos
+  Máximo: # aminoácidos
+  Desviación estándar: # aminoácidos
 
 --- Búsqueda de Proteínas Largas (Longitud > 10) ---
-No hay proteínas con longitud mayor a 10.
+Si/No hay proteínas con longitud mayor a 10.
 
-Número de secuencias de ADN limpias únicas: 2
+Número de secuencias de ADN limpias únicas: x
 --- Fin del Análisis ---
 ```
 
 *🤗Opción 3:* Obtener cadena de ADN complementaria: Te pedirá una secuencia de ADN y generará su cadena complementaria.
 
+```bash
+--- Cadena Complementaria ---
+ADN original: 
+ADN complementario:
+------------------------------
+```
+
 *☺️Opción 4:* Analizar frecuencia de aminoácidos de una proteína: Te pedirá una secuencia de proteína y mostrará la frecuencia porcentual de cada aminoácido.
+
+```bash
+Ingrese la secuencia de proteína para analizar su frecuencia (ej. FLSYWSTOP): MKWVTFISLLFLFSSAYSRGVFRRDTHKSEIAHRFKDLGEENFKALVLIAFAQYLQQCPFEDHVKLVNELTEFAKTCVADESAENCDKSLHTLFGDKLCT
+VATLRETYGEMADCCAKQEPERNECFLSHKDDSPDLPKLKPDPNTLCDEFKADEKKFWGKYLYEIARRHPYFYAPELLFFAKRYKAAFTECCQAADKAACLLPKLDELRDEGKASSAKQRLKCASLQKFGERAFKAWAVARLSQK
+
+--- Frecuencia de Aminoácidos ---
+  A: 28 (11.43%)
+  L: 27 (11.02%)
+  K: 26 (10.61%)
+  E: 21 (8.57%)
+  F: 19 (7.76%)
+  D: 16 (6.53%)
+  S: 13 (5.31%)
+  R: 13 (5.31%)
+  C: 12 (4.90%)
+  T: 10 (4.08%)
+  P: 9 (3.67%)
+  V: 8 (3.27%)
+  Y: 8 (3.27%)
+  Q: 8 (3.27%)
+  G: 7 (2.86%)
+  H: 6 (2.45%)
+  N: 5 (2.04%)
+  I: 4 (1.63%)
+  W: 3 (1.22%)
+  M: 2 (0.82%)
+```
 
 *😉Opción 5:* Salir: Terminará el programa.
 
+```bash
+Gracias por usar el Procesador de Secuencias Biológicas. ¡Hasta pronto!
+```
 
 ## ☁️Monitoreo en Sentry
 
