@@ -17,7 +17,7 @@ Finalizar el desarrollo del universo épico basado en un problema científico re
 
 El simulador ofrece las siguientes características clave:
 
-* **Transformación de Secuencias Biológicas:**
+### **Transformación de Secuencias Biológicas:**
   
   **🧫Limpieza de ADN:** Prepara las secuencias de ADN eliminando formatos innecesarios (ej. `5'-` y `-3'`) y normalizándolas a mayúsculas.
   
@@ -27,25 +27,25 @@ El simulador ofrece las siguientes características clave:
   
   **🧬Traducción (ARN a Proteína):** Traduce la secuencia de ARN en una cadena de aminoácidos, utilizando la tabla de codones estándar. La traducción se detiene al encontrar un codón "STOP".
   
-  **🔬Cadena Complementaria de ADN (¡NUEVO!):** Genera la cadena de ADN complementaria (A se empareja con T, y C con G), una función esencial en la replicación y reparación del ADN.
+  **🔬Cadena Complementaria de ADN :** Genera la cadena de ADN complementaria (A se empareja con T, y C con G), una función esencial en la replicación y reparación del ADN.
 
-* **Detección y Monitoreo de Anomalías Biológicas:**
+### **Detección y Monitoreo de Anomalías Biológicas:**
   
   **🦠Codones Desconocidos:** Alerta si se encuentran secuencias de tres nucleótidos (codones) que no corresponden a ningún aminoácido conocido en la tabla genética, indicando posibles errores o mutaciones.
   
   **🤒Longitud Anormal de Proteínas:** Monitorea y advierte si las proteínas resultantes son inusualmente cortas o largas, lo cual podría implicar una traducción incompleta o errónea.
   
-  **☑️Reporte a Sentry:** Todas las advertencias y errores críticos son enviados a Sentry para un monitoreo profesional en la nube.
+  **☑️Reporte a Sentry:** Todas las advertencias y errores críticos son enviados a Sentry para monitoreo.
 
-* **Análisis de Datos con Archivos y Pandas:**
+### **Análisis de Datos con Archivos y Pandas:**
   
   **🗳️Guardado de Resultados:** Cada secuencia procesada se guarda automáticamente en un archivo `datos_adn.csv`, acumulando un registro histórico de todas las operaciones.
       
   **📊Análisis Estadístico:** Permite cargar y analizar el archivo `datos_adn.csv` para obtener estadísticas descriptivas (promedio, mínimo, máximo, desviación estándar) sobre la longitud de las proteínas, filtrar secuencias por criterios específicos (ej. proteínas largas), y contar secuencias únicas de ADN limpio.
       
-  **📉Análisis de Frecuencia de Aminoácidos (¡NUEVO!):** Calcula y muestra el porcentaje de cada aminoácido presente en una secuencia de proteína dada, ofreciendo una caracterización bioquímica útil.
+  **📉Análisis de Frecuencia de Aminoácidos :** Calcula y muestra el porcentaje de cada aminoácido presente en una secuencia de proteína dada, ofreciendo una caracterización bioquímica útil.
 
-* **Monitoreo Profesional en la Nube (Sentry):**
+### **Monitoreo Profesional en la Nube (Sentry):**
   
   **🔒Registro Centralizado:** Los errores críticos, advertencias y anomalías biológicas detectadas son enviadas a Sentry, una plataforma de monitoreo en la nube, para una gestión y depuración profesional.
       
@@ -53,7 +53,7 @@ El simulador ofrece las siguientes características clave:
       
   **🕹️Inclusión de excepción:** El proyecto incluye al menos una excepción capturada.
 
-* **Seguridad y Buenas Prácticas:**
+### **Seguridad y Buenas Prácticas:**
   
   **🔑Variables de Entorno (`.env`):** Las claves sensibles, como el DSN de Sentry, se gestionan de forma segura utilizando un archivo `.env` y no se exponen directamente en el código ni en el repositorio público.
       
@@ -204,6 +204,13 @@ Este proyecto se integra con Sentry para el monitoreo de errores. Cualquier exce
 
 ![Imagen de WhatsApp 2025-06-01 a las 21 20 19_b63b3bb2](https://github.com/user-attachments/assets/c17da92c-afa1-4704-88b9-0e1f744f662f)
 
+### Etiquetas de anomalias
+
+anomaly_type: "unknown_codons" o "short_protein" o "long_protein"
+
+arn_length: La longitud del ARN cuando se detectó la anomalía de codones.
+
+protein_length: La longitud de la proteína cuando se detectó la anomalía de longitud.
 
 
 ## 📄Archivo de Registro (programa.log)
