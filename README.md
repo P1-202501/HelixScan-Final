@@ -204,7 +204,7 @@ Este proyecto se integra con Sentry para el monitoreo de errores. Cualquier exce
 
 ![Imagen de WhatsApp 2025-06-01 a las 21 20 19_b63b3bb2](https://github.com/user-attachments/assets/c17da92c-afa1-4704-88b9-0e1f744f662f)
 
-### Etiquetas de anomalias
+### Etiquetas
 
 `anomaly_type ` : "unknown_codons" o "short_protein" o "long_protein"
 
@@ -212,6 +212,13 @@ Este proyecto se integra con Sentry para el monitoreo de errores. Cualquier exce
 
 `protein_length` : La longitud de la proteína cuando se detectó la anomalía de longitud.
 
+### Anomalias
+
+`arn_sequence` : La secuencia de ARN completa que causó la anomalía de codones.
+
+`translated_protein` : La proteína resultante de la traducción.
+
+`protein_sequence` : La secuencia de proteína completa que era inusualmente corta o larga.
 
 ## 📄Archivo de Registro (programa.log)
 Todos los eventos internos del programa (información, advertencias, errores, etc.) se registran en el archivo programa.log ubicado en la misma carpeta raíz del proyecto. Este archivo es útil para la depuración y para revisar el flujo de ejecución del programa de forma detallada.
