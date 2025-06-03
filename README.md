@@ -132,9 +132,9 @@ python main.py
 Seleccione una opción (1, 2, 3, 4 o 5):
 ```
 
-*😀Opción 1:*Procesar una nueva secuencia de ADN: Te pedirá que ingreses una secuencia de ADN (ej. 5'-ATCGTGC-3'). El programa la limpiará, validará, transcribirá a ARN, traducirá a proteína, y reportará cualquier anomalía. Los resultados se guardarán en datos_adn.csv.
+*😀Opción 1:* Procesar una nueva secuencia de ADN: Te pedirá que ingreses una secuencia de ADN (ej. 5'-ATCGTGC-3'). El programa la limpiará, validará, transcribirá a ARN, traducirá a proteína, y reportará cualquier anomalía. Los resultados se guardarán en datos_adn.csv.
 
-*😋Opción 2:*Analizar datos de secuencias: Cargará y analizará los datos de todas las secuencias previamente procesadas y guardadas en datos_adn.csv, mostrando estadísticas clave de longitud de proteínas y búsquedas específicas.
+*😋Opción 2:* Analizar datos de secuencias: Cargará y analizará los datos de todas las secuencias previamente procesadas y guardadas en datos_adn.csv, mostrando estadísticas clave de longitud de proteínas y búsquedas específicas.
 
 *🤗Opción 3:* Obtener cadena de ADN complementaria: Te pedirá una secuencia de ADN y generará su cadena complementaria.
 
@@ -144,7 +144,9 @@ Seleccione una opción (1, 2, 3, 4 o 5):
 
 
 ## ☁️Monitoreo en Sentry
+
 Este proyecto se integra con Sentry para el monitoreo de errores. Cualquier excepción no manejada o errores específicos capturados por SequenceLogger serán reportados a tu panel de control de Sentry en tiempo real.
+
 ![Imagen de WhatsApp 2025-06-01 a las 21 20 19_b63b3bb2](https://github.com/user-attachments/assets/c17da92c-afa1-4704-88b9-0e1f744f662f)
 
 
