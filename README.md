@@ -144,6 +144,7 @@ Seleccione una opción (1, 2, 3, 4 o 5):
 
 
 ## ☁️Monitoreo en Sentry
+![Imagen de WhatsApp 2025-06-01 a las 21 20 19_b63b3bb2](https://github.com/user-attachments/assets/c17da92c-afa1-4704-88b9-0e1f744f662f)
 
 
 
