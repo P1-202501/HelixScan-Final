@@ -116,9 +116,10 @@ Para activar el monitoreo profesional, necesitas configurar tu DSN de Sentry:
 
 Para iniciar el simulador, simplemente ejecuta el script `main.py` desde la raíz de tu proyecto:
 
+🎈El programa te presentará un menú interactivo:
+
 ```bash
 python main.py
-El programa te presentará un menú interactivo:
 
 ¡Bienvenido al Procesador de Secuencias Biológicas!
 
