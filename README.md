@@ -134,7 +134,34 @@ Seleccione una opción (1, 2, 3, 4 o 5):
 
 *😀Opción 1:* Procesar una nueva secuencia de ADN: Te pedirá que ingreses una secuencia de ADN (ej. 5'-ATCGTGC-3'). El programa la limpiará, validará, transcribirá a ARN, traducirá a proteína, y reportará cualquier anomalía. Los resultados se guardarán en datos_adn.csv.
 
+```bash
+--- Resultados del Procesamiento ---
+ADN ingresado:
+ADN limpio: 
+ARN: 
+Proteína: 
+Longitud de Proteína: 
+------------------------------------
+```
+
 *😋Opción 2:* Analizar datos de secuencias: Cargará y analizará los datos de todas las secuencias previamente procesadas y guardadas en datos_adn.csv, mostrando estadísticas clave de longitud de proteínas y búsquedas específicas.
+
+```bash
+--- Análisis de Datos de Secuencias ---
+Total de secuencias procesadas: 3
+
+Estadísticas de longitud de proteínas:
+  Promedio: 4.33 aminoácidos
+  Mínimo: 3 aminoácidos
+  Máximo: 7 aminoácidos
+  Desviación estándar: 2.31 aminoácidos
+
+--- Búsqueda de Proteínas Largas (Longitud > 10) ---
+No hay proteínas con longitud mayor a 10.
+
+Número de secuencias de ADN limpias únicas: 2
+--- Fin del Análisis ---
+```
 
 *🤗Opción 3:* Obtener cadena de ADN complementaria: Te pedirá una secuencia de ADN y generará su cadena complementaria.
 
