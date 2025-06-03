@@ -79,19 +79,10 @@ Asegúrate de tener instalado:
    **1️⃣Clona el Repositorio:**
     ```bash
     git clone <URL_DE_TU_REPOSITORIO>
-    cd <nombre-de-tu-carpeta-proyecto> # ej. cd HELISCAN-PROYECTO-FINAL-SG-LP
+    cd <nombre-de-tu-carpeta-proyecto>  ej. cd HELISCAN-PROYECTO-FINAL-SG-LP
     ```
    
-   **2️⃣Crea el entorno virtual (recomendado):**
-    ```bash
-    python -m venv venv
-    # En Windows
-    .\venv\Scripts\activate
-    # En macOS/Linux
-    source venv/bin/activate
-    ```
-   
-   **3️⃣Instala las dependencias:**
+   **2️⃣Instala las dependencias:**
     ```bash
     pip install -r requirements.txt
     ```
