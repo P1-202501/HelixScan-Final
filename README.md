@@ -206,11 +206,11 @@ Este proyecto se integra con Sentry para el monitoreo de errores. Cualquier exce
 
 ### Etiquetas de anomalias
 
-anomaly_type: "unknown_codons" o "short_protein" o "long_protein"
+`anomaly_type ` : "unknown_codons" o "short_protein" o "long_protein"
 
-arn_length: La longitud del ARN cuando se detectó la anomalía de codones.
+`arn_length` : La longitud del ARN cuando se detectó la anomalía de codones.
 
-protein_length: La longitud de la proteína cuando se detectó la anomalía de longitud.
+`protein_length` : La longitud de la proteína cuando se detectó la anomalía de longitud.
 
 
 ## 📄Archivo de Registro (programa.log)
