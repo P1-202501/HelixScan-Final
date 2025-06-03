@@ -72,7 +72,7 @@ class RegistradorSecuencias:
     """
     Clase para encapsular las operaciones de logging para secuencias de ADN/ARN/Proteínas.
     """
-    def _init_(self, nombre_registrador='sequence_processor'):
+    def __init__(self, nombre_registrador='sequence_processor'):
         """
         Inicializa el registrador.
         Args:
@@ -123,7 +123,7 @@ class GestorADN:
     """
     Gestiona las operaciones de limpieza, validación, transcripción de ADN y obtención de complementarias.
     """
-    def _init_(self, registrador: RegistradorSecuencias):
+    def __init__(self, registrador: RegistradorSecuencias):  # <-- Cambia _init_ por __init__
         self.registrador = registrador
         self.complementos = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
 
@@ -174,7 +174,7 @@ class AnalizadorProteinas:
     """
     Maneja la traducción de ARN a proteína y el análisis de la secuencia de proteínas.
     """
-    def _init_(self, registrador: RegistradorSecuencias):
+    def __init__(self, registrador: RegistradorSecuencias):  # <-- Cambia _init_ por __init__
         self.registrador = registrador
 
     def traducir_arn(self, arn: str) -> str:
@@ -438,5 +438,6 @@ def main():
             print("Opción no válida. Por favor, seleccione una de las opciones del menú.")
             registrador.registrar_advertencia(f"Usuario ingresó una opción de menú inválida: {opcion}")
 
-if __name__ == "main": 
+# Al final del archivo, fuera de cualquier función:
+if __name__ == "__main__":
     main()
