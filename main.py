@@ -69,54 +69,60 @@ tabla_codones = {
 }# --- Clases ---
 
 class RegistradorSecuencias:
-    """
-    Clase para encapsular las operaciones de logging para secuencias de ADN/ARN/Proteínas.
-    """
-    def __init__(self, nombre_registrador='sequence_processor'):
-        """
-        Inicializa el registrador.
-        Args:
-            nombre_registrador (str): Nombre del registrador.
-        """
+    #Clase para encapsular las operaciones de logging para secuencias de ADN/ARN/Proteínas.
+    
+    def __init__(self, nombre_registrador='simulador_biologico'):
+    
+        
         self.registrador = logging.getLogger(nombre_registrador)
 
     def registrar_info(self, mensaje):
         """Registra un mensaje de información."""
         self.registrador.info(mensaje)
 
-    def registrar_advertencia(self, mensaje):
-        """
-        Registra un mensaje de advertencia y lo envía a Sentry como un mensaje de nivel 'warning'.
-        """
+    def registrar_advertencia(self, mensaje, extra_data=None):
+      
         self.registrador.warning(mensaje)
         if SENTRY_DSN:
-            sentry_sdk.capture_message(f"Advertencia/Anomalía: {mensaje}", level='warning')
+            with sentry_sdk.push_scope() as scope:
+                if extra_data:
+                   
+                    scope.set_extras(extra_data)
+                sentry_sdk.capture_message(f"Advertencia/Anomalía: {mensaje}", level='warning')
 
-    def registrar_error(self, mensaje, info_exc=False):
-        """
-        Registra un mensaje de error y, opcionalmente, envía la excepción a Sentry.
-        Args:
-            mensaje (str): Mensaje de error.
-            info_exc (bool): Si es True, incluye información de la excepción.
-        """
+    def registrar_error(self, mensaje, info_exc=False, extra_data=None):
+        
+        
         self.registrador.error(mensaje, exc_info=info_exc)
-        if info_exc and SENTRY_DSN:
-            sentry_sdk.capture_exception()
-        elif SENTRY_DSN:
-            sentry_sdk.capture_message(f"Error: {mensaje}", level='error')
+        if SENTRY_DSN:
+            with sentry_sdk.push_scope() as scope:
+                if extra_data:
+                    # CORRECCIÓN CLAVE AQUÍ
+                    scope.set_extras(extra_data)
+                if info_exc:
+                    sentry_sdk.capture_exception()
+                else:
+                    sentry_sdk.capture_message(f"Error: {mensaje}", level='error')
 
-    def registrar_critico(self, mensaje, info_exc=False):
+    def registrar_critico(self, mensaje, info_exc=False, extra_data=None):
         """
         Registra un mensaje crítico y, opcionalmente, envía la excepción a Sentry.
         Args:
             mensaje (str): Mensaje crítico.
             info_exc (bool): Si es True, incluye información de la excepción.
+            extra_data (dict, optional): Datos adicionales para enviar a Sentry.
         """
         self.registrador.critical(mensaje, exc_info=info_exc)
-        if info_exc and SENTRY_DSN:
-            sentry_sdk.capture_exception()
-        elif SENTRY_DSN:
-            sentry_sdk.capture_message(f"Crítico: {mensaje}", level='fatal')
+        if SENTRY_DSN:
+            with sentry_sdk.push_scope() as scope:
+                if extra_data:
+                    # CORRECCIÓN CLAVE AQUÍ
+                    scope.set_extras(extra_data)
+                if info_exc:
+                    sentry_sdk.capture_exception()
+                else:
+                    sentry_sdk.capture_message(f"Crítico: {mensaje}", level='fatal')
+
 
 
 class GestorADN:
@@ -210,7 +216,7 @@ class AnalizadorProteinas:
                     f"Anomalía Biológica: Alta cantidad de codones desconocidos ({conteo_codones_desconocidos})",
                     level='warning',
                     tags={"tipo_anomalia": "codones_desconocidos", "longitud_arn": len(arn), "conteo_desconocidos": conteo_codones_desconocidos},
-                    extra={"secuencia_arn": arn, "proteina_traducida": proteina}
+                    extras={"secuencia_arn": arn, "proteina_traducida": proteina}
                 )
 
         self.registrador.registrar_info(f"ARN '{arn}' traducido a proteína: '{proteina}'")
@@ -233,7 +239,7 @@ class AnalizadorProteinas:
                     f"Anomalía Biológica: Proteína inusualmente corta ({longitud} aa)",
                     level='warning',
                     tags={"tipo_anomalia": "proteina_corta", "longitud_proteina": longitud},
-                    extra={"secuencia_proteina": secuencia_proteina}
+                    extras={"secuencia_proteina": secuencia_proteina}
                 )
         elif longitud > MAX_LONGITUD_PROTEINA_FUNCIONAL:
             mensaje_usuario = f"¡Anomalía detectada! Proteína inusualmente larga ({longitud} aminoácidos). Esto podría ser un error de traducción."
@@ -244,7 +250,7 @@ class AnalizadorProteinas:
                     f"Anomalía Biológica: Proteína inusualmente larga ({longitud} aa)",
                     level='warning',
                     tags={"tipo_anomalia": "proteina_larga", "longitud_proteina": longitud},
-                    extra={"secuencia_proteina": secuencia_proteina}
+                    extras={"secuencia_proteina": secuencia_proteina}
                 )
         
         return longitud
