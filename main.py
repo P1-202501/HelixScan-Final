@@ -8,7 +8,7 @@ import pandas as pd
 from collections import Counter # Para el análisis de frecuencia de aminoácidos
 
 # --- Carga de variables de entorno e inicialización de Sentry ---
-load_dotenv() # Carga las variables de entorno desde el archivo .env
+load_dotenv() 
 
 SENTRY_DSN = os.getenv("SENTRY_DSN")
 
@@ -97,7 +97,7 @@ class RegistradorSecuencias:
         if SENTRY_DSN:
             with sentry_sdk.push_scope() as scope:
                 if extra_data:
-                    # CORRECCIÓN CLAVE AQUÍ
+                   
                     scope.set_extras(extra_data)
                 if info_exc:
                     sentry_sdk.capture_exception()
@@ -116,7 +116,7 @@ class RegistradorSecuencias:
         if SENTRY_DSN:
             with sentry_sdk.push_scope() as scope:
                 if extra_data:
-                    # CORRECCIÓN CLAVE AQUÍ
+                    
                     scope.set_extras(extra_data)
                 if info_exc:
                     sentry_sdk.capture_exception()
@@ -129,7 +129,7 @@ class GestorADN:
     """
     Gestiona las operaciones de limpieza, validación, transcripción de ADN y obtención de complementarias.
     """
-    def __init__(self, registrador: RegistradorSecuencias):  # <-- Cambia _init_ por __init__
+    def __init__(self, registrador: RegistradorSecuencias):  
         self.registrador = registrador
         self.complementos = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
 
@@ -180,7 +180,7 @@ class AnalizadorProteinas:
     """
     Maneja la traducción de ARN a proteína y el análisis de la secuencia de proteínas.
     """
-    def __init__(self, registrador: RegistradorSecuencias):  # <-- Cambia _init_ por __init__
+    def __init__(self, registrador: RegistradorSecuencias):  
         self.registrador = registrador
 
     def traducir_arn(self, arn: str) -> str:
@@ -316,20 +316,7 @@ class AnalizadorProteinas:
                 print(f"  Máximo: {estadisticas_longitud_proteina['max']:.0f} aminoácidos")
                 print(f"  Desviación estándar: {estadisticas_longitud_proteina['std']:.2f} aminoácidos")
 
-                # Visualización: Histograma de longitud de proteínas (requiere matplotlib/seaborn)
-                # if 'matplotlib.pyplot' in globals() and 'seaborn' in globals():
-                #     plt.figure(figsize=(10, 6))
-                #     sns.histplot(df['Longitud_Proteina'], kde=True, bins=10)
-                #     plt.title('Distribución de Longitudes de Proteínas')
-                #     plt.xlabel('Longitud de Proteína (aminoácidos)')
-                #     plt.ylabel('Frecuencia')
-                #     plt.grid(axis='y', alpha=0.75)
-                #     plt.show()
-                # else:
-                #     print("\nSugerencia: Instala matplotlib y seaborn para visualizar la distribución de longitudes de proteínas.")
-
-
-                # Filtrar secuencias con proteinas de longitud > 10 (ejemplo de filtrado avanzado)
+                
                 print("\n--- Búsqueda de Proteínas Largas (Longitud > 10) ---")
                 long_proteins = df[df['Longitud_Proteina'] > 10]
                 if not long_proteins.empty:
@@ -339,12 +326,12 @@ class AnalizadorProteinas:
                 else:
                     print("No hay proteínas con longitud mayor a 10.")
 
-                # Conteo de secuencias de ADN limpias únicas
+               
                 unique_adn_count = df['ADN_Limpio'].nunique()
                 print(f"\nNúmero de secuencias de ADN limpias únicas: {unique_adn_count}")
 
-                # Aquí podrías añadir más análisis con Pandas o incluso gráficos
-                # Por ejemplo, un gráfico de barras de las bases más comunes si lo implementas
+               
+               
 
             else:
                 print("\nEl archivo de datos está vacío. No hay estadísticas para mostrar.")
@@ -372,8 +359,8 @@ def main():
         print("\n--- Menú Principal ---")
         print("1. Procesar una nueva secuencia de ADN")
         print("2. Analizar datos de secuencias (desde 'datos_adn.csv')")
-        print("3. Obtener cadena de ADN complementaria") # Nueva funcionalidad
-        print("4. Analizar frecuencia de aminoácidos de una proteína") # Nueva funcionalidad
+        print("3. Obtener cadena de ADN complementaria") 
+        print("4. Analizar frecuencia de aminoácidos de una proteína") 
         print("5. Salir")
         
         opcion = input("Seleccione una opción (1, 2, 3, 4 o 5): ").strip()
@@ -418,12 +405,12 @@ def main():
         elif opcion == '2':
             analizador_proteinas.cargar_y_analizar_datos()
         
-        elif opcion == '3': # Nueva opción: Obtener cadena complementaria
+        elif opcion == '3': 
             adn_usuario = input("Ingrese la secuencia de ADN para obtener su complementaria: ").strip()
             adn_limpio = gestor_adn.limpiar_adn(adn_usuario)
             if gestor_adn.validar_adn(adn_limpio):
                 cadena_complementaria = gestor_adn.obtener_cadena_complementaria(adn_limpio)
-                if cadena_complementaria: # Si no hubo problemas en obtenerla
+                if cadena_complementaria: 
                     print(f"\n--- Cadena Complementaria ---")
                     print(f"ADN original: {adn_usuario}")
                     print(f"ADN complementario: {cadena_complementaria}")
@@ -432,7 +419,7 @@ def main():
                 print("Error: La secuencia de ADN ingresada no es válida para obtener su complementaria. Solo se permiten A, T, C, G.")
                 registrador.registrar_warning(f"Intento de obtener cadena complementaria con ADN inválido: '{adn_usuario}'")
         
-        elif opcion == '4': # Nueva opción: Analizar frecuencia de aminoácidos
+        elif opcion == '4': 
             proteina_usuario = input("Ingrese la secuencia de proteína para analizar su frecuencia (ej. FLSYWSTOP): ").strip().upper()
             analizador_proteinas.analizar_frecuencia_aminoacidos(proteina_usuario)
 
@@ -444,6 +431,6 @@ def main():
             print("Opción no válida. Por favor, seleccione una de las opciones del menú.")
             registrador.registrar_advertencia(f"Usuario ingresó una opción de menú inválida: {opcion}")
 
-# Al final del archivo, fuera de cualquier función:
+
 if __name__ == "__main__":
-    main()
+    main() 
